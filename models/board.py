@@ -37,6 +37,25 @@ class Board:
             str: The winning symbol ('X' or 'O') if there is a winner, else an empty string
         """
 
+        # Check rows for winner
+        for i in range(3):
+            if self.grid[i][0] == self.grid[i][1] == self.grid[i][2] and self.grid[i][0] != " ":
+                return self.grid[i][0]
+
+        # Check columns for winner
+        for j in range(3):
+            if self.grid[0][j] == self.grid[1][j] == self.grid[2][j] and self.grid[0][j] != " ":
+                return self.grid[0][j]
+
+        # Check diagonals for winner
+        if self.grid[0][0] == self.grid[1][1] == self.grid[2][2] and self.grid[0][0] != " ":
+            return self.grid[0][0]
+        if self.grid[0][2] == self.grid[1][1] == self.grid[2][0] and self.grid[0][2] != " ":
+            return self.grid[0][2]
+
+        # No winner yet
+        return " "
+
     def is_full(self) -> bool:
         """
         Check if the current board is full or not
