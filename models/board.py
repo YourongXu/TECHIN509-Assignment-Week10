@@ -30,31 +30,30 @@ class Board:
         return False
 
     def check_winner(self) -> str:
-        """
-        Check the winner of the current board
+        # 检查每一行是否有赢家
+        for row in self.grid:
+            if row[0] == row[1] == row[2] and row[0] != " ":
+                return row[0]
 
-        Returns:
-            str: The winning symbol ('X' or 'O') if there is a winner, else an empty string
-        """
+        # 检查每一列是否有赢家
+        for col in range(3):
+            if self.grid[0][col] == self.grid[1][col] == self.grid[2][col] and self.grid[0][col] != " ":
+                return self.grid[0][col]
 
-        # Check rows for winner
-        for i in range(3):
-            if self.grid[i][0] == self.grid[i][1] == self.grid[i][2] and self.grid[i][0] != " ":
-                return self.grid[i][0]
-
-        # Check columns for winner
-        for j in range(3):
-            if self.grid[0][j] == self.grid[1][j] == self.grid[2][j] and self.grid[0][j] != " ":
-                return self.grid[0][j]
-
-        # Check diagonals for winner
+        # 检查主对角线是否有赢家
         if self.grid[0][0] == self.grid[1][1] == self.grid[2][2] and self.grid[0][0] != " ":
             return self.grid[0][0]
+
+        # 检查副对角线是否有赢家
         if self.grid[0][2] == self.grid[1][1] == self.grid[2][0] and self.grid[0][2] != " ":
             return self.grid[0][2]
 
-        # No winner yet
-        return " "
+        # 检查是否平局
+        for row in self.grid:
+            if " " in row:
+                return None  # 游戏未结束
+
+        return "Draw"  # 平局
 
     def is_full(self) -> bool:
         """
